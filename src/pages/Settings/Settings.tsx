@@ -4,36 +4,44 @@ import {
   PageHGroup,
   PageHGroupHeading,
   PageHGroupMain,
-  Switch,
+  useUpdateEffect,
 } from "@esfront/react";
-import { Box, FormControlLabel } from "@mui/material";
-import { useRef, useState } from "react";
+import { Box } from "@mui/material";
+import { useRef } from "react";
+import { useSettings } from "../../features/settings";
+import { SettingsControl } from "./ui";
 
 export const Settings = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isAudioPlay, setIsAudioPlay] = useState(false);
+
+  const { mode, isAudioPlay, isReverse, onSettingsChange } = useSettings();
+
+  useUpdateEffect(() => {
+    if (audioRef.current && !!isAudioPlay && audioRef.current.paused) {
+      audioRef.current.addEventListener("loadeddata", () => {
+        audioRef.current?.play();
+      });
+    }
+  });
 
   return (
     <PageHGroup>
       <PageHGroupHeading>Настройки</PageHGroupHeading>
       <PageHGroupMain>
         <Box display="flex" flexDirection="column">
-          <FormControlLabel
-            control={<Switch name="theme" />}
+          <SettingsControl
+            name="theme"
+            checked={mode === "dark"}
             label="Переключить тему"
+            onChange={onSettingsChange}
           />
+
           <Box display="flex" flexWrap="wrap" columnGap="20px">
-            <FormControlLabel
-              control={
-                <Switch
-                  name="sound"
-                  checked={isAudioPlay}
-                  onChange={() => {
-                    setIsAudioPlay(!isAudioPlay);
-                  }}
-                />
-              }
+            <SettingsControl
+              name="sound"
+              checked={isAudioPlay}
               label="Проверить звук"
+              onChange={onSettingsChange}
             />
             {isAudioPlay && (
               <AudioPlayerProvider>
@@ -47,9 +55,11 @@ export const Settings = () => {
             )}
           </Box>
 
-          <FormControlLabel
-            control={<Switch name="reverse" />}
+          <SettingsControl
+            name="reverse"
+            checked={isReverse}
             label="Поменять настройки"
+            onChange={onSettingsChange}
           />
         </Box>
       </PageHGroupMain>
