@@ -8,7 +8,7 @@ import {
 } from "@esfront/react";
 import { Box } from "@mui/material";
 import { useRef } from "react";
-import { useSettings } from "../../features/settings";
+import { useSettings } from "../../features/settings/settings";
 import { SettingsControl } from "./ui";
 
 export const Settings = () => {
