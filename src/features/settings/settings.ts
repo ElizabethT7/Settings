@@ -1,17 +1,17 @@
 import { useUpdateEffect } from "@esfront/react";
 import { useColorScheme } from "@mui/material";
 import { useState } from "react";
-import { setSettingsState } from "./settings.utils";
-import { Settings } from "./settings.types";
+import { setSettingsState } from "./";
+import { Settings } from "./";
 
 export const useSettings = () => {
   const { setMode, mode } = useColorScheme();
 
   const [state, setState] = useState<Settings>({
-    theme: mode === "dark"? 1 : 0,
+    theme: mode === "dark" ? 1 : 0,
     sound: 0,
-    reverse : 0
-  })
+    reverse: 0,
+  });
 
   const onSettingsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const changedState = setSettingsState(e, state);
@@ -19,8 +19,8 @@ export const useSettings = () => {
   };
 
   useUpdateEffect(() => {
-    setMode(!!state.theme ? "dark" : "light" );
-  }, [state.theme])
+    setMode(!!state.theme ? "dark" : "light");
+  }, [state.theme]);
 
   return {
     mode,

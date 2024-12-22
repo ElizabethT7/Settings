@@ -8,14 +8,14 @@ import {
 } from "@esfront/react";
 import { Box } from "@mui/material";
 import { useRef } from "react";
-import { useSettings } from "../../features/settings/settings";
+import { useSettings } from "../../features/settings";
 import { SettingsControl } from "./ui";
-import { settingsControl } from "../../features/settings/settings.utils";
+import { settingsControl } from "../../features/settings";
 
 export const Settings = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const { isAudioPlay,  onSettingsChange, state } = useSettings();
+  const { isAudioPlay, onSettingsChange, state } = useSettings();
 
   useUpdateEffect(() => {
     if (audioRef.current && !!isAudioPlay && audioRef.current.paused) {
@@ -30,7 +30,7 @@ export const Settings = () => {
       <PageHGroupHeading>Настройки</PageHGroupHeading>
       <PageHGroupMain>
         <Box display="flex" flexDirection="column">
-          {settingsControl.map(({name, label}) => (
+          {settingsControl.map(({ name, label }) => (
             <Box key={name} display="flex" flexWrap="wrap" columnGap="20px">
               <SettingsControl
                 name={name}
@@ -48,7 +48,7 @@ export const Settings = () => {
                   />
                 </AudioPlayerProvider>
               )}
-          </Box>
+            </Box>
           ))}
         </Box>
       </PageHGroupMain>
