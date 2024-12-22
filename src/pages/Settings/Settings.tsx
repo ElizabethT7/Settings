@@ -10,18 +10,7 @@ import { Box } from "@mui/material";
 import { useRef } from "react";
 import { useSettings } from "../../features/settings/settings";
 import { SettingsControl } from "./ui";
-
-const settingsControl = [{
-  name: "theme",
-  label: "Переключить тему"
-},
-{
-  name: "sound",
-  label: "Проверить звук"
-},
-{  name: "reverse",
-  label: "Поменять настройки"
-},]
+import { settingsControl } from "../../features/settings/settings.utils";
 
 export const Settings = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
