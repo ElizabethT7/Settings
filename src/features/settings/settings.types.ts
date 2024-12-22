@@ -1,5 +1,1 @@
-export interface ISettings  {
-    theme: number;
-    sound: number;
-    reverse: number;
-}
+export type Settings = {[key:string]: number}

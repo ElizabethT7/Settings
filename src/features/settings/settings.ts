@@ -2,11 +2,12 @@ import { useUpdateEffect } from "@esfront/react";
 import { useColorScheme } from "@mui/material";
 import { useState } from "react";
 import { setSettingsState } from "./settings.utils";
+import { Settings } from "./settings.types";
 
 export const useSettings = () => {
   const { setMode, mode } = useColorScheme();
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<Settings>({
     theme: mode === "dark"? 1 : 0,
     sound: 0,
     reverse : 0

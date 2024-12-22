@@ -1,6 +1,6 @@
-import { ISettings } from "./settings.types";
+import { Settings } from "./settings.types";
 
-export const setSettingsState = (e: React.ChangeEvent<HTMLInputElement>, state: ISettings) => {
+export const setSettingsState = (e: React.ChangeEvent<HTMLInputElement>, state: Settings) => {
     const name = e.target.name as keyof typeof state;
     const changedState = {...state};
 
@@ -15,7 +15,7 @@ export const setSettingsState = (e: React.ChangeEvent<HTMLInputElement>, state: 
       order = 1;
       for (let key in changedState){
         const changedKey = key as keyof typeof changedState;
-        changedState[changedKey] = changedState[changedKey] > 0 ? changedState[changedKey] -1 : 0;
+        changedState[changedKey] = changedState[changedKey] > 0 ? changedState[changedKey] - 1 : 0;
       }
     } else if (Object.values(changedState).includes(1)){
       order = 1;

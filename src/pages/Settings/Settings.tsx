@@ -11,6 +11,18 @@ import { useRef } from "react";
 import { useSettings } from "../../features/settings/settings";
 import { SettingsControl } from "./ui";
 
+const settingsControl = [{
+  name: "theme",
+  label: "Переключить тему"
+},
+{
+  name: "sound",
+  label: "Проверить звук"
+},
+{  name: "reverse",
+  label: "Поменять настройки"
+},]
+
 export const Settings = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -29,38 +41,26 @@ export const Settings = () => {
       <PageHGroupHeading>Настройки</PageHGroupHeading>
       <PageHGroupMain>
         <Box display="flex" flexDirection="column">
-          <SettingsControl
-            name="theme"
-            checked={!!state.theme}
-            label="Переключить тему"
-            onChange={onSettingsChange}
-          />
-
-          <Box display="flex" flexWrap="wrap" columnGap="20px">
-            <SettingsControl
-              name="sound"
-              checked={isAudioPlay}
-              label="Проверить звук"
-              onChange={onSettingsChange}
-            />
-            {isAudioPlay && (
-              <AudioPlayerProvider>
-                <AudioPlayer
-                  audioRef={audioRef}
-                  loop
-                  sx={{ minWidth: "240px" }}
-                  src="https://www.fesliyanstudios.com/musicfiles/2019-06-12_-_Homework_-_David_Fesliyan.mp3"
-                />
-              </AudioPlayerProvider>
-            )}
+          {settingsControl.map(({name, label}) => (
+            <Box key={name} display="flex" flexWrap="wrap" columnGap="20px">
+              <SettingsControl
+                name={name}
+                checked={!!state[name]}
+                label={label}
+                onChange={onSettingsChange}
+              />
+              {name === "sound" && !!state[name] && (
+                <AudioPlayerProvider>
+                  <AudioPlayer
+                    audioRef={audioRef}
+                    loop
+                    sx={{ minWidth: "240px" }}
+                    src="https://www.fesliyanstudios.com/musicfiles/2019-06-12_-_Homework_-_David_Fesliyan.mp3"
+                  />
+                </AudioPlayerProvider>
+              )}
           </Box>
-
-          <SettingsControl
-            name="reverse"
-            checked={!!state.reverse}
-            label="Поменять настройки"
-            onChange={onSettingsChange}
-          />
+          ))}
         </Box>
       </PageHGroupMain>
     </PageHGroup>
