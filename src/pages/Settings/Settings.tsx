@@ -14,7 +14,7 @@ import { SettingsControl } from "./ui";
 export const Settings = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const { mode, isAudioPlay, isReverse, onSettingsChange } = useSettings();
+  const { isAudioPlay,  onSettingsChange, state } = useSettings();
 
   useUpdateEffect(() => {
     if (audioRef.current && !!isAudioPlay && audioRef.current.paused) {
@@ -31,7 +31,7 @@ export const Settings = () => {
         <Box display="flex" flexDirection="column">
           <SettingsControl
             name="theme"
-            checked={mode === "dark"}
+            checked={!!state.theme}
             label="Переключить тему"
             onChange={onSettingsChange}
           />
@@ -57,7 +57,7 @@ export const Settings = () => {
 
           <SettingsControl
             name="reverse"
-            checked={isReverse}
+            checked={!!state.reverse}
             label="Поменять настройки"
             onChange={onSettingsChange}
           />
